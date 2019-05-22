@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,9 +24,60 @@ namespace Server
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string EPoint { get; set; }
+        public string StrJson { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Task SrvStart = new Task(ServerStart);
+            SrvStart.Start();
+
+            Thread.Sleep(1000);
+            this.Title = EPoint;
+        }
+
+        public void ServerStart()
+        {
+            IPAddress ip = IPAddress.Parse("127.0.0.1");
+            IPEndPoint ep = new IPEndPoint(ip, 1098);
+            EPoint = ep.ToString();
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            s.Bind(ep);
+            s.Listen(10);
+            try
+            {
+                while (true)
+                {
+                    Socket ns = s.Accept();
+                    string data = null;
+                    byte[] bytes = new byte[100000];
+                    int bytesRec = ns.Receive(bytes);
+                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    StrJson = data;
+                    ns.Shutdown(SocketShutdown.Both);
+                    ns.Close();
+                }
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show("Socket error: " + ex.Message);
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
+            //if (!string.IsNullOrEmpty(StrJson))
+            //{
+            //    var sendRes = JsonConvert.DeserializeObject<ImageModel>(StrJson);
+
+            //    //imgAddImg.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(sendRes.Base64));
+            //    txtNameImg.Text = sendRes.Name;
+            //}
+
         }
     }
 }
