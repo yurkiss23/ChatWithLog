@@ -24,5 +24,10 @@ namespace Client
         {
             InitializeComponent();
         }
+
+        private void BtnSend_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

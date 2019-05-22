@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Client;
 
 namespace Server
 {
@@ -68,7 +69,8 @@ namespace Server
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Client.MainWindow send = new Client.MainWindow();
+            send.ShowDialog();
 
             //if (!string.IsNullOrEmpty(StrJson))
             //{
