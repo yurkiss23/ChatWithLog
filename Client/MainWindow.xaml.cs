@@ -33,8 +33,8 @@ namespace Client
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow();
-            login.ShowDialog();
+            
+            //login.ShowDialog();
         }
     }
 }
