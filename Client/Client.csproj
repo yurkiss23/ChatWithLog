@@ -47,6 +47,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,11 +69,13 @@
     </ApplicationDefinition>
     <Compile Include="Entities\EFContext.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Migrations\201905220035225_users.cs" />
     <Compile Include="Migrations\201905220035225_users.Designer.cs">
       <DependentUpon>201905220035225_users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\MessegeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>

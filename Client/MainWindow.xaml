@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="Send messege" Height="350" Width="300" Loaded="Window_Loaded">
+        Title="Send messege" Height="350" Width="300">
     <StackPanel>
         <!--<Button x:Name="btnAddImg" Content="Add image" Width="70" Height="30" Margin="20" Click="BtnAddImg_Click"/>-->
         <Border Width="92" Height="122" Background="Gray" Margin="0,20,0,0">

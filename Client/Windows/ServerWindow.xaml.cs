@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Client.Helpers;
+using Client.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -71,13 +74,13 @@ namespace Client.Windows
                 this.Close();
             }
 
-            //if (!string.IsNullOrEmpty(StrJson))
-            //{
-            //    var sendRes = JsonConvert.DeserializeObject<ImageModel>(StrJson);
+            if (!string.IsNullOrEmpty(StrJson))
+            {
+                var sendRes = JsonConvert.DeserializeObject<MessegeModel>(StrJson);
 
-            //    //imgAddImg.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(sendRes.Base64));
-            //    txtNameImg.Text = sendRes.Name;
-            //}
+                imgSender.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(sendRes.Base64));
+                txtMessege.Text = sendRes.Messege;
+            }
 
         }
     }
