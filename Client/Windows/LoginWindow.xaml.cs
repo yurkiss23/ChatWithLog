@@ -1,5 +1,6 @@
 ﻿using Client.Entities;
 using Client.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Client.Windows
     {
         private EFContext _context;
         private List<UserModel> _userList;
+        public string ImgBase64string { get; set; }
         public LoginWindow()
         {
             InitializeComponent();
@@ -80,11 +82,15 @@ namespace Client.Windows
                     if (item.Password == txtPass.Password)
                     {
                         MainWindow main = new MainWindow();
+                        main.UserId = item.Id;
+                        main.ImgBase64string = item.Photo;
                         main.ShowDialog();
+                        break;
                     }
                 }
                 txtLoginName.Text = null;
                 txtPass.Password = null;
+                this.Close();
             }
         }
 

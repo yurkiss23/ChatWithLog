@@ -1,8 +1,11 @@
-﻿using Client.Models;
+﻿using Client.Entities;
+using Client.Helpers;
+using Client.Models;
 using Client.Windows;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -26,41 +29,26 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private EFContext _context;
-        public string NameImg { get; set; }
+        private EFContext _context;
+        public int UserId { get; set; }
         public string ImgBase64string { get; set; }
-        public System.Drawing.Image AddImg { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            _context = new EFContext();
         }
 
         private void BtnSend_Click(object sender, RoutedEventArgs e)
         {
             using (TransactionScope scope = new TransactionScope())
             {
-                //try
-                //{
-                //    _context.Images.Add(new Images()
-                //    {
-                //        Name = NameImg,
-                //        Base64 = ImgBase64string
-                //    });
-                //    _context.SaveChanges();
-                //    MessageBox.Show("addind to db complite");
-                //}
-                //catch
-                //{
-                //    throw new Exception("error db");
-                //}
-
-                var img = new MessegeModel
+                var msg = new MessegeModel
                 {
-                    Messege = txtMessege.Text,
-                    Photo = ImgBase64string
+                    Id = UserId,
+                    Messege = txtMessege.Text
                 };
 
-                var strJson = JsonConvert.SerializeObject(img);
+                var strJson = JsonConvert.SerializeObject(msg);
 
                 IPAddress ip = IPAddress.Parse("127.0.0.1");
                 IPEndPoint ep = new IPEndPoint(ip, 1098);
@@ -84,6 +72,12 @@ namespace Client
             MessageBox.Show("transaction complite");
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            imgSender.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(
+                _context.Users.Where(u => u.Id == UserId).First().Photo));
+            txtMessege.Focus();
+        }
     }
-}
 }

@@ -47,6 +47,5 @@ namespace Client.Helpers
             }
             catch { return null; }
         }
-
     }
 }

@@ -8,7 +8,7 @@ namespace Client.Models
 {
     public class MessegeModel
     {
+        public int Id { get; set; }
         public string Messege { get; set; }
-        public string Photo { get; set; }
     }
 }

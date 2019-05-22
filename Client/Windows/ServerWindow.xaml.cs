@@ -1,4 +1,5 @@
-﻿using Client.Helpers;
+﻿using Client.Entities;
+using Client.Helpers;
 using Client.Models;
 using Newtonsoft.Json;
 using System;
@@ -25,11 +26,13 @@ namespace Client.Windows
     /// </summary>
     public partial class ServerWindow : Window
     {
+        private EFContext _context;
         public string EPoint { get; set; }
         public string StrJson { get; set; }
         public ServerWindow()
         {
             InitializeComponent();
+            _context = new EFContext();
 
             Task SrvStart = new Task(ServerStart);
             SrvStart.Start();
@@ -69,19 +72,12 @@ namespace Client.Windows
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Client.Windows.LoginWindow login = new Client.Windows.LoginWindow();
-            if (login.ShowDialog() == false)
-            {
-                this.Close();
-            }
+            login.ShowDialog();
 
-            if (!string.IsNullOrEmpty(StrJson))
-            {
-                var sendRes = JsonConvert.DeserializeObject<MessegeModel>(StrJson);
-
-                imgSender.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(sendRes.Base64));
-                txtMessege.Text = sendRes.Messege;
-            }
-
+            var sendRes = JsonConvert.DeserializeObject<MessegeModel>(StrJson);
+            imgSender.Source = ImageHelper.BitmapToImageSource(ImageHelper.Base64ToImg(
+                _context.Users.Where(u => u.Id == sendRes.Id).First().Photo));
+            txtMessege.Text = sendRes.Messege;
         }
     }
 }
