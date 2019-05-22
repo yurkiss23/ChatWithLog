@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,12 @@ namespace Client
         private void BtnSend_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login = new LoginWindow();
+            login.ShowDialog();
         }
     }
 }

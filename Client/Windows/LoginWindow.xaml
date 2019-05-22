@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Windows"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Login" Height="350" Width="300">
+    <StackPanel>
+        <TextBox x:Name="txtLoginName" Height="30" HorizontalContentAlignment="Center" Margin="10"/>
+        <PasswordBox x:Name="txtPass" Height="30" HorizontalContentAlignment="Center" Margin="10"/>
+        <Button x:Name="btnLogin" Content="Login" Width="90" Height="30" Margin="20" Click="BtnLogin_Click" />
+    </StackPanel>
 </Window>
